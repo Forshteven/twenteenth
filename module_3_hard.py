@@ -15,29 +15,33 @@ def calculate_structure_sum(lst):
             elif isinstance(i, (str)):
                 global_sum += len(i)
             elif isinstance(i, (list)):
-                global_sum += calculate_structure_sum()
-        elif isinstance(i, (dict)):
-            lst1 = i.keys()
-            lst2 = i.values()
-            for item in lst1:
-                if isinstance(item, (int, float)):
-                    global_sum += item
-                elif isinstance(item, (str)):
-                    global_sum += len(item)
-            for item in lst2:
-                if isinstance(item, (int, float)):
-                    global_sum += item
-                elif isinstance(item, (str)):
-                    global_sum += len(item)
-        elif isinstance(i, (tuple)):
-            for item in i:
-                if isinstance(item, (int, float)):
-                    global_sum += item
-                elif isinstance(item, (str)):
-                    global_sum += len(i)
-                elif isinstance(item, (dict)):
-                    global_sum += calculate_structure_sum({item})
+                for item in i:
+                    if isinstance(item, (int, float)):
+                        global_sum += item
+                    elif isinstance(item, (str)):
+                        global_sum += len(item)
+            elif isinstance(i, (dict)):
+                lst1 = i.keys()
+                lst2 = i.values()
+                for item in lst1:
+                    if isinstance(item, (int, float)):
+                        global_sum += item
+                    elif isinstance(item, (str)):
+                        global_sum += len(item)
+                for item in lst2:
+                    if isinstance(item, (int, float)):
+                        global_sum += item
+                    elif isinstance(item, (str)):
+                        global_sum += len(item)
+            elif isinstance(i, (tuple)):
+                for item in i:
+                    if isinstance(item, (int, float)):
+                        global_sum += item
+                    elif isinstance(item, (str)):
+                        global_sum += len(i)
+                    elif isinstance(item, (dict)):
+                        global_sum += calculate_structure_sum([item])
 
-
+    return global_sum
 result = calculate_structure_sum(data_structure)
 print(result)
