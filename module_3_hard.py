@@ -6,20 +6,17 @@ data_structure = [
     ((), [{(2, 'Urban', ('Urban2', 35))}])
 ]
 
+
 def calculate_structure_sum(lst):
     global_sum = 0
     if isinstance(lst, (list)):
         for i in lst:
-            if isinstance(i, (int, float)):
+            if i == False:
+                continue
+            elif isinstance(i, (int, float)):
                 global_sum += i
             elif isinstance(i, (str)):
                 global_sum += len(i)
-            elif isinstance(i, (list)):
-                for item in i:
-                    if isinstance(item, (int, float)):
-                        global_sum += item
-                    elif isinstance(item, (str)):
-                        global_sum += len(item)
             elif isinstance(i, (dict)):
                 lst1 = i.keys()
                 lst2 = i.values()
@@ -33,15 +30,17 @@ def calculate_structure_sum(lst):
                         global_sum += item
                     elif isinstance(item, (str)):
                         global_sum += len(item)
-            elif isinstance(i, (tuple)):
+            elif isinstance(i, (list, set, tuple)):
                 for item in i:
                     if isinstance(item, (int, float)):
                         global_sum += item
                     elif isinstance(item, (str)):
-                        global_sum += len(i)
-                    elif isinstance(item, (dict)):
+                        global_sum += len(item)
+                    else:
                         global_sum += calculate_structure_sum([item])
 
     return global_sum
+
+
 result = calculate_structure_sum(data_structure)
 print(result)
